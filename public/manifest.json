@@ -1,0 +1,49 @@
+{
+  "name": "Broadcast - WhatsApp Bulk Messaging Platform",
+  "short_name": "Broadcast",
+  "description": "Professional WhatsApp bulk messaging platform built on Meta's Official API. Send personalized messages to thousands at scale.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#25D366",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Get Started",
+      "short_name": "Sign Up",
+      "description": "Create your Broadcast account",
+      "url": "https://app.broadcast.com.ng/signup",
+      "icons": [
+        {
+          "src": "/favicon.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
