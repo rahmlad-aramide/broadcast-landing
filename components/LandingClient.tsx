@@ -1048,6 +1048,7 @@ export default function LandingClient() {
               <a href={`${APP_URL}/contacts`}>Contacts</a>
               <a href={`${APP_URL}/campaigns`}>Campaigns</a>
               <a href={`${APP_URL}/templates`}>Templates</a>
+              <Link href="/setup-guide">Setup Guide</Link>
             </div>
             <div className="lp-footer-col">
               <strong>Legal</strong>

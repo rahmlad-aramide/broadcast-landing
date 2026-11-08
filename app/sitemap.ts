@@ -13,6 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       images: ["https://broadcast.com.ng/og-image.png"],
     },
     {
+      url: "https://broadcast.com.ng/setup-guide",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: "https://broadcast.com.ng/privacy-policy",
       lastModified: new Date(),
       changeFrequency: "yearly",
