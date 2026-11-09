@@ -1945,3 +1945,74 @@
     color: #0f172a;
 }
 
+
+/* ── SEND YOUR FIRST MESSAGE ── */
+.lp-send-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
+.lp-send-card { padding: 28px; border-radius: 20px; border: 1px solid var(--lp-border); background: var(--lp-card-bg); }
+.lp-send-tag { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; color: var(--lp-green); border: 1px solid var(--lp-green); margin-bottom: 14px; }
+.lp-send-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+.lp-send-card p { color: var(--lp-muted); line-height: 1.6; margin-bottom: 14px; }
+.lp-send-card ul { padding-left: 18px; color: var(--lp-text); line-height: 1.8; font-size: 0.95rem; }
+.lp-send-steps { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.lp-send-steps li { display: flex; gap: 14px; align-items: flex-start; }
+.lp-send-steps li > span { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--lp-green); color: #04210f; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.lp-send-steps p { color: var(--lp-muted); font-size: 0.9rem; line-height: 1.5; margin-top: 4px; }
+.lp-send-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; margin-top: 36px; }
+.lp-send-link { color: var(--lp-green); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 600px) {
+    .lp-send-card { padding: 22px; }
+    .lp-send-cta .lp-btn { width: 100%; justify-content: center; }
+}
+
+/* ── THEME MENU ── */
+.lp-theme-menu { position: relative; display: flex; }
+.lp-theme-list {
+    position: absolute; z-index: 1100; top: calc(100% + 8px); right: 0; min-width: 160px; padding: 6px;
+    background: var(--lp-bg); border: 1px solid var(--lp-border); border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); display: flex; flex-direction: column; gap: 2px;
+}
+.lp-theme-list button {
+    display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; min-height: 40px;
+    background: none; border: none; border-radius: 8px; cursor: pointer; color: var(--lp-text); font: inherit; font-size: 0.9rem; text-align: left;
+}
+.lp-theme-list button:hover, .lp-theme-list button:focus-visible { background: rgba(255, 255, 255, 0.07); outline: none; }
+[data-theme="light"] .lp-theme-list button:hover, [data-theme="light"] .lp-theme-list button:focus-visible { background: rgba(0, 0, 0, 0.06); }
+.lp-theme-list button.active { color: var(--lp-green); }
+.lp-theme-check { margin-left: auto; }
+
+/* ── CONTACT ── */
+.lp-contact-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; margin-top: 40px; align-items: start; }
+.lp-contact-cards { display: flex; flex-direction: column; gap: 16px; }
+.lp-contact-card { display: flex; gap: 16px; align-items: flex-start; padding: 22px; border-radius: 16px; border: 1px solid var(--lp-border); background: var(--lp-card-bg); color: var(--lp-text); text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+.lp-contact-card:hover { border-color: var(--lp-green); transform: translateY(-2px); }
+.lp-contact-card svg { color: var(--lp-green); flex-shrink: 0; margin-top: 2px; }
+.lp-contact-card div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.lp-contact-card span { color: var(--lp-green); overflow-wrap: anywhere; }
+.lp-contact-card small { color: var(--lp-muted); font-size: 0.85rem; }
+.lp-contact-form-wrap { padding: 28px; border-radius: 20px; border: 1px solid var(--lp-border); background: var(--lp-card-bg); }
+.lp-contact-form { display: flex; flex-direction: column; gap: 18px; }
+.lp-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.lp-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.lp-field label { font-size: 0.85rem; font-weight: 500; color: var(--lp-text); }
+.lp-field input, .lp-field select, .lp-field textarea {
+    width: 100%; padding: 11px 14px; font: inherit; font-size: 1rem; color: var(--lp-text);
+    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--lp-border); border-radius: 10px; outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+[data-theme="light"] .lp-field input, [data-theme="light"] .lp-field select, [data-theme="light"] .lp-field textarea { background: #fff; }
+.lp-field input:focus, .lp-field select:focus, .lp-field textarea:focus { border-color: var(--lp-green); box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.15); }
+.lp-field textarea { resize: vertical; min-height: 120px; }
+.lp-field select option { background: var(--lp-bg); color: var(--lp-text); }
+.lp-field-hint { color: var(--lp-muted); font-size: 0.8rem; }
+.lp-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.lp-contact-error { color: #ef4444; font-size: 0.9rem; }
+.lp-contact-form .lp-btn { align-self: flex-start; }
+.lp-contact-success { text-align: center; padding: 24px 8px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.lp-contact-success svg { color: var(--lp-green); }
+.lp-contact-success p { color: var(--lp-muted); max-width: 380px; line-height: 1.6; }
+@media (max-width: 860px) { .lp-contact-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+    .lp-field-row { grid-template-columns: 1fr; }
+    .lp-contact-form-wrap { padding: 20px; }
+    .lp-contact-form .lp-btn { align-self: stretch; justify-content: center; }
+}

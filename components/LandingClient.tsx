@@ -18,8 +18,6 @@ import {
   Sparkles,
   CheckCircle,
   ArrowRight,
-  Sun,
-  Moon,
   ArrowDown,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
@@ -27,7 +25,8 @@ import Link from "next/link";
 import { toast } from "sonner";
 
 import Icon from "./Icon";
-import { useTheme } from "../context/ThemeContext";
+import ThemeMenu from "./ThemeMenu";
+import ContactSection, { INFO_EMAIL, SUPPORT_EMAIL } from "./ContactSection";
 import { APP_URL, signupCustomer } from "../lib/api";
 
 interface PhonePreview {
@@ -232,7 +231,6 @@ export default function LandingClient() {
   // (via io()), which defeats the point of this being a static marketing page.
   // A copyright year doesn't need per-request freshness; bump it annually.
   const year = 2026;
-  const { theme, toggleTheme } = useTheme();
   const [activeUseCaseIdx, setActiveUseCaseIdx] = useState(0);
   const activePreview = USE_CASES[activeUseCaseIdx].phonePreview;
 
@@ -289,24 +287,16 @@ export default function LandingClient() {
           <div className="lp-nav-links">
             <a href="#features">Features</a>
             <a href="#how">How it works</a>
+            <a href="#first-send">First send</a>
             <a href="#pricing">Pricing</a>
             <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
           </div>
           <div className="lp-nav-actions">
             <a href="#setup" className="lp-nav-link-text">
               Request Setup
             </a>
-            <button
-              onClick={toggleTheme}
-              className="lp-theme-toggle"
-              aria-label={
-                theme === "dark"
-                  ? "Switch to light mode"
-                  : "Switch to dark mode"
-              }
-            >
-              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
+            <ThemeMenu />
             <a href={`${APP_URL}/signup`} className="lp-btn lp-btn-primary">
               Get Started <ArrowRight size={18} />
             </a>
@@ -562,6 +552,82 @@ export default function LandingClient() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SEND YOUR FIRST MESSAGE: Campaign vs Dispatch ── */}
+      <section className="lp-section" id="first-send">
+        <div className="lp-section-inner">
+          <div className="lp-eyebrow">Send your first message</div>
+          <h2 className="lp-section-title">
+            Campaign or Dispatch? Pick the one that fits
+          </h2>
+          <p className="lp-section-sub">
+            Both start with a Meta-approved template. The difference is whether
+            everyone gets the same message, or their own file.
+          </p>
+
+          <div className="lp-send-grid">
+            <div className="lp-send-card">
+              <div className="lp-send-tag">Campaign</div>
+              <h3>Same message, many people</h3>
+              <p>
+                Choose a template and a group of contacts. Everyone receives the
+                same message, personalised with their name or details.
+              </p>
+              <ul>
+                <li>Promotions and offers</li>
+                <li>Announcements and event reminders</li>
+                <li>Product launches and updates</li>
+              </ul>
+            </div>
+            <div className="lp-send-card">
+              <div className="lp-send-tag">Dispatch</div>
+              <h3>Same caption, their own document</h3>
+              <p>
+                Upload a CSV with a file link per person. Each recipient gets
+                the caption plus their own PDF or image.
+              </p>
+              <ul>
+                <li>Invoices and receipts</li>
+                <li>Account statements</li>
+                <li>Certificates, results and tickets</li>
+              </ul>
+            </div>
+          </div>
+
+          <ol className="lp-send-steps">
+            <li>
+              <span>1</span>
+              <div>
+                <strong>Add contacts</strong>
+                <p>Import a CSV or add people one by one.</p>
+              </div>
+            </li>
+            <li>
+              <span>2</span>
+              <div>
+                <strong>Create a template</strong>
+                <p>Write the message once. Meta usually approves it within minutes to a day.</p>
+              </div>
+            </li>
+            <li>
+              <span>3</span>
+              <div>
+                <strong>Launch and watch it land</strong>
+                <p>Start a Campaign or Dispatch and follow sent, delivered and read live.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div className="lp-send-cta">
+            <a href={`${APP_URL}/signup`} className="lp-btn lp-btn-primary lp-btn-lg">
+              Get started <ArrowRight size={18} />
+            </a>
+            <Link href="/setup-guide" className="lp-send-link">
+              Read the full setup guide
+            </Link>
           </div>
         </div>
       </section>
@@ -1004,6 +1070,9 @@ export default function LandingClient() {
         </div>
       )}
 
+      {/* ── CONTACT ── */}
+      <ContactSection />
+
       {/* ── FAQ ── */}
       <section className="lp-section" id="faq">
         <div className="lp-section-inner">
@@ -1041,6 +1110,9 @@ export default function LandingClient() {
               <a href="#how">How it works</a>
               <a href="#pricing">Pricing</a>
               <a href="#faq">FAQ</a>
+              <a href="#contact">Contact</a>
+              <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+              <a href={`mailto:${INFO_EMAIL}`}>{INFO_EMAIL}</a>
             </div>
             <div className="lp-footer-col">
               <strong>App</strong>

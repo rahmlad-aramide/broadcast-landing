@@ -1,9 +1,8 @@
 'use client';
 
 import Link from "next/link";
-import { Sun, Moon } from "lucide-react";
 import Icon from "./Icon";
-import { useTheme } from "../context/ThemeContext";
+import ThemeMenu from "./ThemeMenu";
 
 // Not new Date().getFullYear() — see the comment in LandingClient.tsx.
 const YEAR = 2026;
@@ -14,7 +13,6 @@ const p = { fontSize: "0.95rem", lineHeight: "1.7", color: "var(--lp-muted)" } a
 const col = { display: "flex", flexDirection: "column", gap: "12px" } as const;
 
 export default function SetupGuideClient() {
-  const { theme, toggleTheme } = useTheme();
   return (
     <div className="lp">
       <div className="lp-glow-container">
@@ -28,13 +26,7 @@ export default function SetupGuideClient() {
             <Icon /> Broadcast
           </Link>
           <div className="lp-nav-actions">
-            <button
-              onClick={toggleTheme}
-              className="lp-theme-toggle"
-              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
+            <ThemeMenu />
             <Link href="/" className="lp-btn lp-btn-ghost">
               ← Back to Home
             </Link>

@@ -21,3 +21,27 @@ export async function signupCustomer(payload: SignupCustomerPayload): Promise<{ 
     }
     return data;
 }
+
+export type ContactTopic = 'support' | 'billing' | 'inquiry' | 'partnership' | 'other';
+
+export interface ContactPayload {
+    name: string;
+    email: string;
+    topic: ContactTopic;
+    message: string;
+    /** Honeypot — must stay empty; bots fill it. */
+    website?: string;
+}
+
+export async function sendContactMessage(payload: ContactPayload): Promise<{ message: string }> {
+    const res = await fetch(`${APP_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+        throw new Error(data.error || 'Could not send your message. Please try again.');
+    }
+    return data;
+}
