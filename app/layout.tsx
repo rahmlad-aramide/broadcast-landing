@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "../context/ThemeContext";
+import { ConsentProvider } from "../context/ConsentContext";
+import CookieConsent from "../components/CookieConsent";
 import "./globals.css";
 import "./landing.css";
 import "./modal.css";
@@ -134,7 +136,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ))}
       </head>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <ConsentProvider>
+            {children}
+            <CookieConsent />
+          </ConsentProvider>
+        </ThemeProvider>
         <Toaster richColors position="top-right" />
       </body>
     </html>

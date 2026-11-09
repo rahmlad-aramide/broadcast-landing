@@ -19,14 +19,18 @@ import {
   CheckCircle,
   ArrowRight,
   ArrowDown,
+  Menu,
+  X,
 } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 
 import Icon from "./Icon";
 import ThemeMenu from "./ThemeMenu";
-import ContactSection, { INFO_EMAIL, SUPPORT_EMAIL } from "./ContactSection";
+import { FAQ_GROUPS } from "../lib/faqs";
+import ContactSection from "./ContactSection";
+import SiteFooter from "./SiteFooter";
 import { APP_URL, signupCustomer } from "../lib/api";
 
 interface PhonePreview {
@@ -202,40 +206,24 @@ const USE_CASES: { id: string; icon: ReactNode; label: string; phonePreview: Pho
   },
 ];
 
-const FAQS = [
-  {
-    q: "Do I need a Meta Business account?",
-    a: "Yes. You'll need a Meta Business Manager account with the WhatsApp Business API (Cloud API) enabled. We connect directly to Meta's official API — no third-party intermediaries, no markup fees.",
-  },
-  {
-    q: "Can each contact receive a different document?",
-    a: 'Absolutely. Add any column (e.g. document_url) to your CSV when importing contacts. When creating a campaign with a media template, enter that column name in the "Per-contact document field" and each recipient automatically gets their own file.',
-  },
-  {
-    q: "What file types can I send?",
-    a: "PDFs, DOCX files, images (JPEG / PNG / WebP), and videos — either uploaded directly to Meta's media servers during template creation, or served from a publicly accessible URL stored in a contact field.",
-  },
-  {
-    q: "Is there a limit on how many messages I can send?",
-    a: "Message tier limits are set by Meta based on your account's sending history (starting at 1,000/day for new accounts). Our queue processes messages with smart delays to stay within your allowed rate and automatically retries on transient failures.",
-  },
-  {
-    q: "How do I import my contact list?",
-    a: 'Go to the Contacts page and click "Import CSV". Your file needs at minimum a phone column with the full country code (e.g. 2348012345678). Any extra columns are saved as custom fields and available for campaign personalisation.',
-  },
-];
-
 export default function LandingClient() {
-  // Not new Date().getFullYear() — Cache Components treats any Date read during
-  // render as "impure" and either errors or forces the whole route dynamic
-  // (via io()), which defeats the point of this being a static marketing page.
-  // A copyright year doesn't need per-request freshness; bump it annually.
-  const year = 2026;
   const [activeUseCaseIdx, setActiveUseCaseIdx] = useState(0);
   const activePreview = USE_CASES[activeUseCaseIdx].phonePreview;
 
   // Custom setup lead-capture modal state
   const [showSignup, setShowSignup] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Mobile menu: Escape closes it, and it closes itself if the window grows to desktop width.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
+    const mq = window.matchMedia("(min-width: 961px)");
+    const onWide = () => { if (mq.matches) setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    mq.addEventListener("change", onWide);
+    return () => { window.removeEventListener("keydown", onKey); mq.removeEventListener("change", onWide); };
+  }, [menuOpen]);
   const [signupName, setSignupName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [signupCompany, setSignupCompany] = useState("");
@@ -279,29 +267,55 @@ export default function LandingClient() {
       </div>
 
       {/* ── NAV ── */}
-      <nav className="lp-nav">
+      <nav className="lp-nav" aria-label="Main">
         <div className="lp-nav-inner">
-          <a href="#top" className="lp-logo">
+          <a href="#top" className="lp-logo" onClick={() => setMenuOpen(false)}>
             <Icon height={30} /> Broadcast
           </a>
           <div className="lp-nav-links">
             <a href="#features">Features</a>
             <a href="#how">How it works</a>
-            <a href="#first-send">First send</a>
             <a href="#pricing">Pricing</a>
-            <a href="#faq">FAQ</a>
+            <Link href="/tools">Free tools</Link>
             <a href="#contact">Contact</a>
           </div>
           <div className="lp-nav-actions">
-            <a href="#setup" className="lp-nav-link-text">
-              Request Setup
+            <a href={`${APP_URL}/login`} className="lp-nav-link-text">
+              Login
             </a>
             <ThemeMenu />
-            <a href={`${APP_URL}/signup`} className="lp-btn lp-btn-primary">
+            <a href={`${APP_URL}/signup`} className="lp-btn lp-btn-primary lp-nav-cta">
+              Get Started <ArrowRight size={18} />
+            </a>
+            <button
+              type="button"
+              className="lp-nav-toggle"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="lp-nav-panel"
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+        {menuOpen && (
+          <div className="lp-nav-panel" id="lp-nav-panel">
+            {[
+              ["#features", "Features"],
+              ["#how", "How it works"],
+              ["#pricing", "Pricing"],
+            ].map(([href, label]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>
+            ))}
+            <Link href="/tools" onClick={() => setMenuOpen(false)}>Free tools</Link>
+            <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+            <a href={`${APP_URL}/login`}>Login</a>
+            <a href={`${APP_URL}/signup`} className="lp-btn lp-btn-primary lp-nav-panel-cta">
               Get Started <ArrowRight size={18} />
             </a>
           </div>
-        </div>
+        )}
       </nav>
 
       {/* ── HERO ── */}
@@ -930,23 +944,6 @@ export default function LandingClient() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ── */}
-      <section className="lp-cta-banner">
-        <div className="lp-section-inner">
-          <h2>Start sending personalised WhatsApp messages today</h2>
-          <p>
-            Connect your Meta account, upload your contacts, and launch your
-            first campaign in minutes.
-          </p>
-          <a
-            href={`${APP_URL}/dashboard`}
-            className="lp-btn lp-btn-white lp-btn-lg"
-          >
-            Open Dashboard <ArrowRight size={18} />
-          </a>
-        </div>
-      </section>
-
       {/* signup customer lead modal */}
       {showSignup && (
         <div
@@ -1079,70 +1076,46 @@ export default function LandingClient() {
           <div className="lp-faq-wrap">
             <div className="lp-eyebrow">FAQ</div>
             <h2 className="lp-section-title">Common questions</h2>
-            <div className="lp-faq-list">
-              {FAQS.map((f) => (
-                <details className="lp-faq-item" key={f.q}>
-                  <summary>{f.q}</summary>
-                  <p>{f.a}</p>
-                </details>
+            <nav className="lp-faq-jump" aria-label="FAQ topics">
+              {FAQ_GROUPS.map((g) => (
+                <a key={g.id} href={`#faq-${g.id}`}>{g.title}</a>
               ))}
+            </nav>
+            {FAQ_GROUPS.map((g) => (
+              <div className="lp-faq-group" key={g.id} id={`faq-${g.id}`}>
+                <h3 className="lp-faq-group-title">{g.title}</h3>
+                <div className="lp-faq-list">
+                  {g.items.map((f) => (
+                    <details className="lp-faq-item" key={f.q}>
+                      <summary>{f.q}</summary>
+                      <p>{f.a}</p>
+                      {f.link && (
+                        <p className="lp-faq-link">
+                          {f.link.external ? (
+                            <a href={f.link.href} target="_blank" rel="noopener noreferrer">{f.link.label} →</a>
+                          ) : f.link.href.startsWith("#") ? (
+                            <a href={f.link.href}>{f.link.label} →</a>
+                          ) : (
+                            <Link href={f.link.href}>{f.link.label} →</Link>
+                          )}
+                        </p>
+                      )}
+                    </details>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <div className="lp-faq-more">
+              <strong>Still have a question?</strong>
+              <span>We usually reply within 1 business day.</span>
+              <a href="#contact" className="lp-btn lp-btn-ghost">Contact us</a>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="lp-footer">
-        <div className="lp-footer-inner">
-          <div className="lp-footer-brand">
-            <a href="#top" className="lp-logo">
-              <Icon /> Broadcast
-            </a>
-            <p>
-              The WhatsApp broadcasting platform built for businesses that need
-              to reach their audience at scale — without the middleman markup.
-            </p>
-          </div>
-          <div className="lp-footer-cols">
-            <div className="lp-footer-col">
-              <strong>Product</strong>
-              <a href="#features">Features</a>
-              <a href="#how">How it works</a>
-              <a href="#pricing">Pricing</a>
-              <a href="#faq">FAQ</a>
-              <a href="#contact">Contact</a>
-              <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
-              <a href={`mailto:${INFO_EMAIL}`}>{INFO_EMAIL}</a>
-            </div>
-            <div className="lp-footer-col">
-              <strong>App</strong>
-              <a href={`${APP_URL}/dashboard`}>Dashboard</a>
-              <a href={`${APP_URL}/contacts`}>Contacts</a>
-              <a href={`${APP_URL}/campaigns`}>Campaigns</a>
-              <a href={`${APP_URL}/templates`}>Templates</a>
-              <Link href="/setup-guide">Setup Guide</Link>
-            </div>
-            <div className="lp-footer-col">
-              <strong>Legal</strong>
-              <Link href="/privacy-policy">Privacy Policy</Link>
-              <Link href="/terms-of-service">Terms of Service</Link>
-            </div>
-          </div>
-        </div>
-        <div className="lp-footer-bottom">
-          © {year} Broadcast. Built on Official Meta&apos;s Cloud API. Powered
-          by &nbsp;
-          <a
-            className="lp-csv-link"
-            style={{ opacity: 0.7 }}
-            href="http://rahmlad.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Rahmlad Solutions
-          </a>
-        </div>
-      </footer>
+      <SiteFooter onHome />
     </div>
   );
 }

@@ -13,6 +13,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       images: ["https://broadcast.com.ng/og-image.png"],
     },
     {
+      url: "https://broadcast.com.ng/tools",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: "https://broadcast.com.ng/tools/whatsapp-formatter",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://broadcast.com.ng/tools/whatsapp-link-generator",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://broadcast.com.ng/tools/whatsapp-api-fees",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://broadcast.com.ng/tools/whatsapp-template-builder",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://broadcast.com.ng/tools/image-compressor",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: "https://broadcast.com.ng/setup-guide",
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -20,6 +56,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: "https://broadcast.com.ng/privacy-policy",
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: "https://broadcast.com.ng/cookie-policy",
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.3,
