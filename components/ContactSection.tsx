@@ -72,7 +72,7 @@ export default function ContactSection() {
                             <div className="lp-contact-success" role="status">
                                 <CheckCircle2 size={40} />
                                 <h3>Message sent</h3>
-                                <p>Thanks! We&apos;ve emailed a confirmation to {form.email} and will reply within 1 business day.</p>
+                                <p>Thanks! We&apos;ll reply within 1 business day.</p>
                                 <button
                                     type="button"
                                     className="lp-btn lp-btn-ghost"
