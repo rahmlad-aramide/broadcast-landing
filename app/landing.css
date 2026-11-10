@@ -2410,3 +2410,43 @@ section[id] { scroll-margin-top: 110px; }
         -webkit-backdrop-filter: blur(16px);
     }
 }
+
+/* ── LIQUID GLASS: cookie banner + dialogs ──
+   The cookie banner/dialogs render in the root layout, OUTSIDE `.lp`, so the --lp-* tokens
+   were undefined there and the background resolved to transparent (text clashed with the page
+   beneath). Re-declare the tokens locally, then give every surface a real glass treatment. */
+.lp-cookie-banner, .lp-cookie-overlay {
+    --lp-green: #25D366;
+    --lp-bg: #030712;
+    --lp-text: #f3f4f6;
+    --lp-muted: #b4bcc8;
+    --lp-border: rgba(255, 255, 255, 0.14);
+    --glass-bg: linear-gradient(145deg, rgba(30, 41, 59, 0.62), rgba(10, 15, 30, 0.74));
+    --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+    --glass-scrim: rgba(3, 7, 18, 0.45);
+}
+[data-theme="light"] .lp-cookie-banner, [data-theme="light"] .lp-cookie-overlay {
+    --lp-bg: #f0f4f8;
+    --lp-text: #1e293b;
+    --lp-muted: #475569;
+    --lp-border: rgba(15, 23, 42, 0.12);
+    --glass-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(241, 245, 249, 0.6));
+    --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(15, 23, 42, 0.04);
+    --glass-scrim: rgba(15, 23, 42, 0.28);
+}
+.lp-cookie-banner, .lp-cookie-modal {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--lp-border);
+    box-shadow: var(--glass-edge), 0 20px 50px rgba(0, 0, 0, 0.35);
+    color: var(--lp-text);
+}
+.lp-cookie-overlay {
+    background: var(--glass-scrim);
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    color: var(--lp-text);
+}
+.lp-cookie-modal { --lp-bg: transparent; }
+.lp-cookie-modal h2, .lp-cookie-modal strong { color: var(--lp-text); }

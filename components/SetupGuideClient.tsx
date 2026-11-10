@@ -78,6 +78,11 @@ export default function SetupGuideClient() {
                 spaces or dashes, for example <code>https://wa.me/2348012345678</code>. A Facebook or Instagram page link
                 also works.
               </p>
+              <p style={p}>
+                Not sure how to build the link? Use our free{" "}
+                <Link href="/tools/whatsapp-link-generator" className="lp-csv-link">WhatsApp Link &amp; QR Code Generator</Link>{" "}
+                to create your website link in seconds, then paste it into Meta&apos;s website field.
+              </p>
             </div>
 
             <div style={col}>
