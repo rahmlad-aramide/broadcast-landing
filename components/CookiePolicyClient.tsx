@@ -17,7 +17,7 @@ const ROWS: { name: string; purpose: string; kind: string; duration: string }[] 
   { name: "theme", purpose: "Remembers your light / dark / system display choice, on this site and in the Broadcast app.", kind: "Essential", duration: "12 months" },
   { name: "cookie_consent", purpose: "Remembers the cookie choice you made, so we don't ask on every visit.", kind: "Essential", duration: "12 months" },
   { name: "broadcast.sharePromptDismissed, broadcast.sharePromptShown", purpose: "Browser storage that remembers you've seen (or asked not to see) the “tell a friend” reminder after downloading from our free tools.", kind: "Essential", duration: "Until cleared (session for the second)" },
-  { name: "_ga, _ga_<ID>", purpose: "Google Analytics: tells us which pages are visited and how people find us, using anonymised data.", kind: "Analytics (only if you accept)", duration: "Up to 2 years" },
+  { name: "_ga, _ga_<ID>", purpose: "Google Analytics: tells us which pages are visited and how people find us, using anonymised data.", kind: "Analytics", duration: "Up to 2 years" },
 ];
 
 export default function CookiePolicyClient() {
@@ -100,16 +100,15 @@ export default function CookiePolicyClient() {
               <h2 style={h2}>4. Third-party services</h2>
               <p style={p}>
                 Some features load from other providers, who may set their own cookies under their own policies: Paystack
-                (when you pay for a subscription), Meta (when you connect WhatsApp through Meta&apos;s sign-in), and, only if you
-                accept analytics, Google Analytics.
+                (when you pay for a subscription), Meta (when you connect WhatsApp through Meta&apos;s sign-in), and Google
+                Analytics.
               </p>
             </div>
 
             <div style={section}>
               <h2 style={h2}>5. Your choices</h2>
               <p style={p}>
-                Essential cookies can&apos;t be switched off because the site relies on them. Analytics cookies are off unless you
-                accept them, and you can change your mind at any time.
+                Essential cookies can&apos;t be switched off because the site relies on them. By using this site you agree to analytics cookies, and you can switch them off at any time.
                 {ANALYTICS_CONFIGURED ? "" : " (We don't currently run analytics on this site, so there is nothing to switch on.)"}
               </p>
               {ANALYTICS_CONFIGURED && (

@@ -47,7 +47,9 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     const value = useMemo<ConsentValue>(() => ({
         choice,
         ready,
-        analyticsAllowed: ANALYTICS_CONFIGURED && choice === 'all',
+        // On by default; only an explicit opt-out (footer → Cookie settings) turns it off.
+        // `ready` ensures a stored opt-out is read before anything loads.
+        analyticsAllowed: ANALYTICS_CONFIGURED && ready && choice !== 'essential',
         settingsOpen,
         openSettings: () => setSettingsOpen(true),
         closeSettings: () => setSettingsOpen(false),
